@@ -64,6 +64,8 @@
       #     ./nixos/configuration.nix
       #   ];
       # };
+      # export NIX_CONFIG="experimental-features = nix-command flakes"
+      # $ sudo nix run 'github:nix-community/disko/latest#disko-install' -- --write-efi-boot-entries --flake '.#nixosvm' --disk main /dev/vda
       # FIXME replace with your hostname
       nixosvm = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
