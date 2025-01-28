@@ -12,12 +12,16 @@
     # Home manager
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    inputs.disko.url = "github:nix-community/disko/latest";
+    inputs.disko.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
     self,
     nixpkgs,
     home-manager,
+    disko,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -64,6 +68,8 @@
       nixosvm = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
+          disko.nixosModules.disko 
+          ./hosts/nixosvm/disko-config.nix
           # > Our main nixos configuration file <
           ./hosts/nixosvm/configuration.nix
         ];
@@ -73,8 +79,17 @@
     # Standalone home-manager configuration entrypoint
     # Available through 'home-manager --flake .#your-username@your-hostname'
     homeConfigurations = {
+      # # FIXME replace with your username@hostname
+      # "your-username@nixosvm" = home-manager.lib.homeManagerConfiguration {
+      #   pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+      #   extraSpecialArgs = {inherit inputs outputs;};
+      #   modules = [
+      #     # > Our main home-manager configuration file <
+      #     ./home-manager/home.nix
+      #   ];
+      # };      
       # FIXME replace with your username@hostname
-      "your-username@nixosvm" = home-manager.lib.homeManagerConfiguration {
+      "plankton@nixosvm" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
