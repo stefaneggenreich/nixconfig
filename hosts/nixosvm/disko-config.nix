@@ -2,24 +2,23 @@
   disko.devices = {
     disk = {
       main = {
+        # When using disko-install, we will overwrite this value from the commandline
+        device = "/dev/disk/by-id/some-disk-id";
         type = "disk";
-        device = "/dev/vda";
         content = {
           type = "gpt";
           partitions = {
-            # boot = {
-            #   size = "1M";
-            #   type = "EF02"; # for grub MBR
-            #   priority = 1;
-            # };
+            MBR = {
+              type = "EF02"; # for grub MBR
+              size = "1M";
+            };
             ESP = {
-              size = "512M";
               type = "EF00";
+              size = "500M";
               content = {
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
-                mountOptions = [ "umask=0077" ];
               };
             };
             root = {
