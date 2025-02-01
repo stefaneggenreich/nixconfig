@@ -24,14 +24,15 @@
     ./hardware-configuration.nix
   ];
 
-  # boot.loader.grub.enable = true;
-  # boot.loader.grub.device = "/dev/vda";
-  # boot.loader.grub.useOSProber = true;
-
+  boot.loader.grub = {
+    # no need to set devices, disko will add all devices that have a EF02 partition to the list already
+    # devices = [ ];
+    efiSupport = true;
+    efiInstallAsRemovable = true;
+  };
 
   services.xserver.enable = true;
-
-  services.displayManager.sddm.enable = true; 
+  services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
 
@@ -100,6 +101,8 @@
       extraGroups = ["wheel"];
     };
   };
+
+  users.mutableUsers = false;
 
   # This setups a SSH server. Very important if you're setting up a headless system.
   # Feel free to remove if you don't need it.
