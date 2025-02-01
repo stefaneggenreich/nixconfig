@@ -64,9 +64,7 @@
       #     ./nixos/configuration.nix
       #   ];
       # };
-      # export NIX_CONFIG="experimental-features = nix-command flakes"
-      # mount -o remount,size=10G,noatime /nix/.rw-store
-# sudo nix run 'github:nix-community/disko/latest#disko-install' --experimental-features 'nix-command flakes' -- --write-efi-boot-entries --flake '.#nixosvm' --disk main /dev/vda      # FIXME replace with your hostname
+
       nixosvm = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
