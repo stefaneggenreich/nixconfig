@@ -81,6 +81,9 @@
           ./hosts/yoga370/disko-config.nix
           # > Our main nixos configuration file <
           ./hosts/yoga370/configuration.nix
+          home-manager.nixosModules.home-manager {
+            home-manager.users."plankton" = import ./home-manager/home.nix;
+          }
         ];
       };
     };
