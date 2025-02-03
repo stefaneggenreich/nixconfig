@@ -74,6 +74,15 @@
           ./hosts/nixosvm/configuration.nix
         ];
       };
+       yoga370 = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        modules = [
+          disko.nixosModules.disko 
+          ./hosts/yoga370/disko-config.nix
+          # > Our main nixos configuration file <
+          ./hosts/yoga370/configuration.nix
+        ];
+      };
     };
 
     # Standalone home-manager configuration entrypoint
@@ -90,6 +99,14 @@
       # };      
       # FIXME replace with your username@hostname
       "plankton@nixosvm" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+        extraSpecialArgs = {inherit inputs outputs;};
+        modules = [
+          # > Our main home-manager configuration file <
+          ./home-manager/home.nix
+        ];
+      };
+      "plankton@yoga370" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
