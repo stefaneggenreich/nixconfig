@@ -52,46 +52,31 @@
     homeDirectory = "/home/plankton";
   };
 
-  # services.xserver.xkb = {
-  #   layout ="de";
-  #   variant ="";
-  # };
 
-  # console.keyMap = "de";
 
   # Add stuff for your user as you see fit:
   programs.neovim.enable = true;
+  programs.git = {
+   enable = true;
+   userEmail = "piller.stefan@proton.me";
+   userName = "pillerstefan";
+  };
+
+  programs.vscode = {
+  enable = true; 
+  package = pkgs.vscode.fhs;
+};
   home.packages = with pkgs; [ 
-    git 
-    steam 
     brave
-   ];
+  ];
 
   # Enable home-manager and git
   programs.home-manager.enable = true;
-  programs.git.enable = true;
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
 
 
-  # # Set your time zone.
-  # time.timeZone = "Europe/Vienna";
-
-  # # Select internationalisation properties.
-  # i18n.defaultLocale = "de_AT.UTF-8";
-
-  # i18n.extraLocaleSettings = {
-  #   LC_ADDRESS = "de_AT.UTF-8";
-  #   LC_IDENTIFICATION = "de_AT.UTF-8";
-  #   LC_MEASUREMENT = "de_AT.UTF-8";
-  #   LC_MONETARY = "de_AT.UTF-8";
-  #   LC_NAME = "de_AT.UTF-8";
-  #   LC_NUMERIC = "de_AT.UTF-8";
-  #   LC_PAPER = "de_AT.UTF-8";
-  #   LC_TELEPHONE = "de_AT.UTF-8";
-  #   LC_TIME = "de_AT.UTF-8";
-  # };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "24.11";
