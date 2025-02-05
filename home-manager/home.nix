@@ -61,27 +61,24 @@
   # Enable home-manager and git
   programs.home-manager.enable = true;
 
+  programs.thefuck.enable = true;
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-    autosuggestions.enable = true;
+    #autosuggestions.enable = true;
     syntaxHighlighting.enable = true;
 
     shellAliases = {
       ll = "ls -l";
-      update = "sudo nixos-rebuild switch";
+      update = "sudo nixos-rebuild switch --flake ./nixconfig";
     };
-    histSize = 10000;
+    #histSize = 10000;
 
-    zplug = {
+    oh-my-zsh = {
       enable = true;
-      plugins = [
-        { name = "zsh-users/zsh-autosuggestions"; } # Simple plugin installation
-        {
-          name = "romkatv/powerlevel10k";
-          tags = [ "as:theme" "depth:1" ];
-        } # Installations with additional options. For the list of options, please refer to Zplug README.
-      ];
+      plugins = [ "git" "thefuck" ];
+      theme = "cloud";
     };
   };
   # Nicely reload system units when changing configs

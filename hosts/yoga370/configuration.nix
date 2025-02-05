@@ -31,8 +31,11 @@
   services.xserver.xkb = {
     layout = "de";
     variant = "";
-
   };
+
+  programs.zsh.enable = true;
+
+  users.defaultUserShell = pkgs.zsh;
 
   console.keyMap = "de";
 
